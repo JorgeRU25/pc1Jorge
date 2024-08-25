@@ -14,7 +14,7 @@ namespace pc1Jorge.Models
 
         public List<string>? Instrumentos { get; set; }
 
-        public decimal Monto { get; set; }
+        public decimal MontoTotal { get; set; }
 
         public decimal Igv { get; set; }
 
@@ -28,14 +28,14 @@ namespace pc1Jorge.Models
             if(Monto > 300)    
             {
                 Comision=1; 
-                Monto= Monto +Comision;
+                MontoTotal= MontoTotal +Comision;
             }else{
                 Comision=3;
-                Monto= Monto +Comision;
+                MontoTotal= MontoTotal +Comision;
             }
 
             Igv = 0.18m;
-            montoIgv = Monto * (1+Igv);
+            montoIgv = MontoTotal * (1+Igv);
 
             totalAbonar = montoIgv + Comision;
         }
