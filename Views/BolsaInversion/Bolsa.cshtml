@@ -1,0 +1,76 @@
+@model pc1Jorge.Models.Bolsa
+
+@{
+    ViewBag.Title = "Formulario Bolsa";
+    var listaBolsas = ViewData["listaBolsas"] as List<Bolsa>; 
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Formulario de Inversión</h2>
+    <form  asp-asp-controller="BolsaInversion" asp-action="Create" method="post">
+        <div class="form-group mb-2">
+            <label asp-for="NombreApellido" class="control-label" >Nombre y Apellido</label>
+            <input asp-for="NombreApellido" class="form-control" type="text" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-2">
+            <label asp-for="Correo" class="control-label">Correo Electrónico</label>
+            <input asp-for="Correo" type="email" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-2">
+            <label asp-for="Fecha" class="control-label">Fecha de Operación</label>
+            <input asp-for="Fecha" type="date" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-2">
+            <label>Instrumentos Financieros</label><br>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="Instrumentos" value="S&P 500">
+                <label for="S&P 500">S&P 500</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="Dow Jones" value="Dow Jones">
+                <label for="S&P 500">Dow Jones</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="Bonos US" value="Bonos US">
+                <label for="S&P 500">Bonos US</label>
+            </div>
+            <small class="form-text text-muted">Debes seleccionar al menos uno.</small>
+        </div>
+
+        <div class="form-group mb-2">
+            <label asp-for="Monto" class="control-label">Monto a Abonar (en USD)</label>
+            <input asp-for="Monto" type="number" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+
+         <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Instrumento</th>
+                    <th>IGV</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var bolsa in listaBolsas)
+                {
+                    <tr>
+                        <td>
+                        @foreach (var instrumento in bolsa.Instrumentos)
+                        {
+                            <span>@instrumento</span><br/>
+                        }
+                        </td>
+                        <td>@bolsa.Igv</td>    
+                        <td>@bolsa.Monto</td>
+                    </tr>
+                }
+           </tbody>
+        </table>   
+
+    </form>
+</div>
